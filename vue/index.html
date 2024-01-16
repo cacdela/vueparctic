@@ -14,7 +14,7 @@
 <div id="app">
 
    <div class="product">
-
+       
        <div class="product-image">
             <img v-bind:src="image" v-bind:alt="altText" />
        </div>
@@ -23,10 +23,15 @@
            <h1>{{ product }}</h1>
        </div>
 
+       <div class="product-name">
+           <p>{{ description }}</p>
+       </div>
+
+       <div class="product-a">
+            <a :href="link">More products like this</a>
+       </div>
+
    </div>
-</div>
-<div id="appP">
-    <p>{{ description }}</p>
 </div>
 </body>
 </html>
