@@ -19,7 +19,8 @@
             <img v-bind:src="image" v-bind:alt="altText" />
 
             <div class="product-quantity">
-            <p v-if="inStock">In Stock</p>
+            <p v-if="inventory > 10">In Stock</p>
+            <p v-else-if="inventory <= 10 && inventory > 0">Almost sold out!</p>
             <p v-else>Out of Stock</p>
         </div>
        </div>
