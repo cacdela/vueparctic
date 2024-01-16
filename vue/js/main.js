@@ -7,6 +7,7 @@ let app = new Vue({
         product,
         image: "./assets/vmSocks-blue-onWhite.jpg",
         altText: "A pair of socks",
+        inStock: true,
         description,
         link: "https://www.amazon.com/s/ref=nb_sb_noss?url=search-alias%3Daps&field-keywords=socks",
      }     
