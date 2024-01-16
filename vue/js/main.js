@@ -9,6 +9,7 @@ let app = new Vue({
         altText: "A pair of socks",
         inStock: true,
         inventory: 100,
+        onSale: true,
         description,
         link: "https://www.amazon.com/s/ref=nb_sb_noss?url=search-alias%3Daps&field-keywords=socks",
      }     
