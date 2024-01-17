@@ -62,16 +62,17 @@ Vue.component('product', {
                 <button v-on:click="removeFromCart">Remove from Cart</button>
             </div>
             <div>
-            <h2>Reviews</h2>
-            <p v-if="!reviews.length">There are no reviews yet.</p>
-            <ul>
-              <li v-for="review in reviews">
-              <p>{{ review.name }}</p>
-              <p>Rating: {{ review.rating }}</p>
-              <p>{{ review.review }}</p>
-              </li>
-            </ul>
-            </div>
+    <h2>Reviews</h2>
+    <p v-if="!reviews.length">There are no reviews yet.</p>
+    <ul>
+        <li v-for="review in reviews">
+            <p>{{ review.name }}</p>
+            <p>Rating: {{ review.rating }}</p>
+            <p>{{ review.review }}</p>
+            <p>Recommendation: {{ review.recommend }}</p>
+        </li>
+    </ul>
+</div>
             <product-review @review-submitted="addReview"></product-review>
         </div>
     `,
@@ -179,7 +180,13 @@ Vue.component('product-review', {
  </p>
 
  <p>
-   <input required type="submit" value="Submit"> 
+   <label for="recommend">Would you recommend this product?</label>
+   <input type="radio" id="yes" value="yes" v-model="recommend"> <label for="yes">Yes</label>
+   <input type="radio" id="no" value="no" v-model="recommend"> <label for="no">No</label>
+ </p>
+
+ <p>
+   <input required type="submit" value="Submit">
  </p>
 
 </form>
@@ -190,32 +197,34 @@ Vue.component('product-review', {
             name: null,
             review: null,
             rating: null,
+            recommend: null,
             errors: [],
         }
     },
-    methods:{
+    methods: {
         onSubmit() {
-            if(this.name && this.review && this.rating) {
+            this.errors = [];
+            if (this.name && this.review && this.rating && this.recommend) {
                 let productReview = {
                     name: this.name,
                     review: this.review,
-                    rating: this.rating
+                    rating: this.rating,
+                    recommend: this.recommend,
                 }
-                this.$emit('review-submitted', productReview)
-                this.name = null
-                this.review = null
-                this.rating = null
+                this.$emit('review-submitted', productReview);
+                this.name = null;
+                this.review = null;
+                this.rating = null;
+                this.recommend = null;
             } else {
-                if(!this.name) this.errors.push("Name required.")
-                if(!this.review) this.errors.push("Review required.")
-                if(!this.rating) this.errors.push("Rating required.")
+                if (!this.name) this.errors.push("Name required.");
+                if (!this.review) this.errors.push("Review required.");
+                if (!this.rating) this.errors.push("Rating required.");
+                if (!this.recommend) this.errors.push("Recommendation required.");
             }
         }
-
     }
-
-
-})
+});
 
 let app = new Vue({
     el: '#app',
