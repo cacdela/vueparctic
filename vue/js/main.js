@@ -1,6 +1,23 @@
 let product = "Socks";
 let description = "A pair of warm, fuzzy socks."
 
+Vue.component('product-details', {
+    props: {
+        details: {
+            type: Array,
+            required: true
+        }
+    },
+    template: `
+        <div>
+            <ul>
+                <li v-for="detail in details">{{ detail }}</li>
+            </ul>
+        </div>
+    `
+});
+
+
 Vue.component('product', {
     template: `
    <div class="product">
@@ -27,9 +44,7 @@ Vue.component('product', {
                     @mouseover="updateProduct(index)"
             ></div>
 
-            <ul>
-                <li v-for="detail in details">{{ detail }}</li>
-            </ul>
+            <product-details :details="details"></product-details>
 
             <p>Size</p>
             <ul>
@@ -67,7 +82,7 @@ Vue.component('product', {
         premium: {
             type: Boolean,
             required: true
-        }
+        },
     },
 
     data() {
