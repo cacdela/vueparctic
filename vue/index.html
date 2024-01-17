@@ -21,7 +21,7 @@
 
         <div class="product-info">
             <h1>{{ title }}</h1>
-
+            <p>{{ sale }}</p>
 
             <div class="product-quantity">
                 <p v-if="inStock" class="inStock">In stock</p>
@@ -47,10 +47,6 @@
 
             <div v-for="variant in variants" :key="variant.variantId">
                 <p>{{ variant.variantColor }}</p>
-            </div>
-
-            <div class="product-sale">
-                <span v-show="onSale">On Sale!</span>
             </div>
 
             <div class="cart">
