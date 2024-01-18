@@ -3,10 +3,9 @@ let description = "A pair of warm, fuzzy socks.";
 let eventBus = new Vue()
 
 Vue.component('product-details', {
-    props: {
-        details: {
-            type: Array,
-            required: true
+    data() {
+        return {
+            details: ['80% cotton', '20% polyester', 'Gender-neutral'],
         }
     },
     template: `
@@ -38,7 +37,7 @@ Vue.component('product', {
                 <div class="color-box" v-for="(variant, index) in variants" :key="variant.variantId"
                      :style="{ backgroundColor: variant.variantColor }" @mouseover="updateProduct(index)"></div>
 
-                <product-details :details="details"></product-details>
+<!--                <product-details :details="details"></product-details>-->
 
                 <p>Size</p>
                 <ul>
@@ -74,7 +73,7 @@ Vue.component('product', {
 <!--                </ul>-->
 <!--            </div>-->
             
-            <product-tabs :reviews="reviews"></product-tabs>
+            <product-tabs :reviews="reviews" :shipping="shipping"></product-tabs>
             
 <!--            <product-review @review-submitted="addReview"></product-review>-->
         </div>
@@ -97,7 +96,6 @@ Vue.component('product', {
             description,
             link: "https://www.amazon.com/s/ref=nb_sb_noss?url=search-alias%3Daps&field-keywords=socks",
             sizes: ['S', 'M', 'L', 'XL', 'XXL', 'XXXL'],
-            details: ['80% cotton', '20% polyester', 'Gender-neutral'],
             variants: [
                 {
                     variantId: 2234,
@@ -157,11 +155,28 @@ Vue.component('product', {
     },
 });
 
+Vue.component('product-detail', {
+    template: `
+    <ul>
+        <li v-for="detail in details" :key="detail">{{ detail }}</li>
+    </ul>
+    `,
+    data() {
+        return { details: ['80% cotton', '20% polyester', 'Gender-neutral'] }
+    }
+
+})
+
+
 Vue.component('product-tabs', {
     props: {
         reviews: {
             type: Array,
             required: false
+        },
+        shipping: {
+            type: String,
+            required: true
         }
     },
     template: `
@@ -186,12 +201,19 @@ Vue.component('product-tabs', {
        <div v-show="selectedTab === 'Make a Review'">
          <product-review></product-review>
        </div>
+       <div v-show="selectedTab === 'Shipping'">
+            <p>Shipping : {{ shipping }}</p>
+           
+        </div>
+        <div v-show="selectedTab === 'Details'">
+            <product-details></product-details>
+        </div>
      </div>
 `,
     data() {
         return {
-            tabs: ['Reviews', 'Make a Review'],
-            selectedTab: 'Reviews'  // устанавливается с помощью @click
+            tabs: ['Reviews', 'Make a Review', 'Shipping', 'Details',],
+            selectedTab: 'Reviews'
         }
     },
 
