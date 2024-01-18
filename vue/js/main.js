@@ -27,7 +27,7 @@ Vue.component('product', {
             <div class="product-info">
                 <h1>{{ title }}</h1>
                 <p>{{ sale }}</p>
-                <p>Shipping: {{ shipping }}</p>
+<!--                <p>Shipping: {{ shipping }}</p>-->
 
                 <div class="product-quantity">
                     <p v-if="inStock" class="inStock">In stock</p>
@@ -55,9 +55,7 @@ Vue.component('product', {
                 <div class="product-a">
                     <a :href="link">More products like this</a>
                 </div>
-                <button v-on:click="addToCart" :disabled="!inStock" :class="{ disabledButton: !inStock }">
-                Add to cart
-                </button>
+                <button v-on:click="addToCart" :disabled="!inStock" :class="{ disabledButton: !inStock }">Add to cart</button>
                 <button v-on:click="removeFromCart">Remove from Cart</button>
             </div>
 <!--            <div>-->
